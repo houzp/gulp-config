@@ -11,9 +11,10 @@
   "author": "hzp",
   "license": "MIT",
   "devDependencies": {
+    "minimatch": "",
+    "graceful-fs": "",
     "babel-preset-es2015": "^6.13.2",
     "browser-sync": "^2.14.0",
-    "graceful-fs": "",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-babel": "^6.1.2",
@@ -28,7 +29,6 @@
     "gulp-pngquant": "^1.0.10",
     "gulp-rev": "^7.1.2",
     "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^2.0.0",
-    "minimatch": ""
+    "gulp-uglify": "^2.0.0"
   }
 }

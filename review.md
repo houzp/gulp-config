@@ -1,6 +1,6 @@
 ## Gulp 配置 ##
 ###### 8/19/2016 10:45:36 AM 
-###### 完成此文档时已发布node 6.3.0，但是推荐使用node 5.9.0
+###### 完成此文档时已发布node 6.3.0，但是推荐使用node 5.9.0以及淘宝npm镜像
 ###### Posted by Xh007 qq358914543
 ## 
 ### 功能、模块名称：
@@ -9,7 +9,7 @@
 3. gulp-jade
 4. gulp-autoprefixer
 5. gulp-clean-css
-6. gulp-uglify 
+6. gulp-uglify
 7. gulp-babel
 8. gulp-concat
 9. gulp-htmlmin
@@ -38,9 +38,11 @@
 ##
 ### 流程预估
 1. jade-->html-->htmlmin;
-2. less-->css-->concat-->autoprefixer-->clean-css-->rev/rename;
-3. babel-->es5-->uglify-->rev/rename;
+2. less-->css-->concat-->autoprefixer-->clean-css-->sourcemaps-->rev/rename;
+3. babel-->es5-->concat-->uglify-->sourcemaps-->rev/rename;
 4. img-->imagemin(imagemin-pngquant)-->rev/rename;
+5. 并行：1,2,3,4并行；
+6. 待定流程：html/css文件中引用路径的更改；
 ## 
 
 ### 目录结构
@@ -108,7 +110,7 @@
 	var autoprefixer = require('gulp-autoprefixer');
 	var autoprefixerArr=[ "chrome 30", "Firefox < 20","ios_saf 8", "safari 8",'Android >= 2.3'];
 	gulp.task('autofx', function () {
-	    gulp.src(*.css)
+	    gulp.src("*.css")
 	        .pipe(autoprefixer({
 	            browsers: autoprefixerArr,
 	            cascade: true, //是否美化属性值 默认：true 像这样：
@@ -154,7 +156,7 @@
 	//安装：npm install --save-dev gulp-babel babel-preset-es2015;
 
 	var babel = require('gulp-babel');
-	gulp.task('Babel', () => {
+	gulp.task('babel', () => {
 	    return gulp.src('*.js')
 			.pipe(sourcemaps.init())
 	        .pipe(babel({
@@ -255,7 +257,7 @@
 		pngquant = require('imagemin-pngquant');
 	
 	gulp.task('imgAllmin', function () {
-     	gulp.src(img/*.{png,jpg,gif,ico})
+     	gulp.src("img/*.{png,jpg,gif,ico}")
 	         .pipe(cache(imagemin({
 	             optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
 	             progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
@@ -326,7 +328,9 @@
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('PATH')); 
 	});
-######
+    
+###### 
+
 	//多任务中的单任务
 	gulp.task('autofx', function () {
      	gulp.src(inputPath_css)
@@ -352,4 +356,37 @@
     .pipe(cssmin({compatibility: 'ie8'}))
     .pipe(gulp.dest('PATH'));
 	});
+###### less-->concat-->cssmin-->autoprefixer-->sourcemaps;
+	gulp.task('less_allin', function() {
+	    return gulp.src("less/*.less")
+	        .pipe(sourcemaps.init()) //sourcemaps
+	    .pipe(plumber({
+	        errorHandler: notify.onError('Error: <%= error.message %>')
+	    })) //错误处理
+	    .pipe(less()) //less编译
+	    .pipe(concat("index.min.css"))
+	    .pipe(cssmin()) //cssmin
+	    .pipe(autoprefixer({
+	        browsers: config["autoprefixer_conf"],
+	        cascade: true,
+	        remove: true,
+	        map: true
+	    })) //autoprefixer
+	    .pipe(sourcemaps.write('../maps'))
+	    .pipe(gulp.dest('css'));
+	});
+###### babel-->es5-->uglify-->sourcemaps
+	gulp.task('babel_alternertive', () => {
+	    return gulp.src('es6js/*.js')
+	        .pipe(sourcemaps.init())
+	        .pipe(babel({
+	            presets: ['es2015']
+	        }))
+	        .pipe(uglify())
+	        .pipe(sourcemaps.write('../maps/es6'))
+	        .pipe(gulp.dest('js'));
+	});
 
+### 杂项
+- 淘宝npm镜像安装：`npm install -g cnpm --registry=https://registry.npm.taobao.org；`
+- gulp-if以及串行方式处理任务暂无，因此命令行传参暂无；

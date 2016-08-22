@@ -1,0 +1,1 @@
+{"version":3,"sources":["testless.less"],"names":[],"mappings":"AACA;EACI,YAAA;EACA,cAAA;;AAEJ;EAHI,YAAA;EACA,cAAA;EAIA,eAAA","sourcesContent":["@red:red;\n.w100{\n    width: 100px;\n    margin: 0 auto;\n}\ndiv{\n    .w100;\n    background: @red;\n}\n"],"file":"testless.css","sourceRoot":"/source/"}
