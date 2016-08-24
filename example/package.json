@@ -5,14 +5,16 @@
   "description": "this is a gulp packge example .json file",
   "Keywords": "gulp",
   "main": "gulpfile.js",
+  "dependencies":{
+    "minimatch": "",
+    "graceful-fs": "",
+    },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "hzp",
   "license": "MIT",
   "devDependencies": {
-    "minimatch": "",
-    "graceful-fs": "",
     "babel-preset-es2015": "^6.13.2",
     "browser-sync": "^2.14.0",
     "gulp": "^3.9.1",

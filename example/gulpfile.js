@@ -17,12 +17,13 @@ var gulp = require("gulp"),
 
 var config = {
     "browsersync_conf": {
-        "files": [
+        files: [
             '*.html',
+            '*.htm',
             'css/*.css',
             'js/*.js'
         ],
-        "server": {
+        server: {
             baseDir: "./"
         }
     },
@@ -44,7 +45,17 @@ var config = {
  */
 //browsersync
 gulp.task('browsersync', function() {
-    browsersync.init(config["browsersync_conf"]["files"], config["browsersync_conf"]["server"]);
+    var files = [
+    '*.html',
+    'css/*.css',
+    'js/*.js'
+  ];
+
+  browsersync.init(files,{
+    server: {
+      baseDir: ""
+    }
+  });
 });
 
 //babel
@@ -178,20 +189,20 @@ gulp.task('less_all', function() {
 gulp.task('less_allin', function() {
     return gulp.src("less/*.less")
         .pipe(sourcemaps.init()) //sourcemaps
-    .pipe(plumber({
-        errorHandler: notify.onError('Error: <%= error.message %>')
-    })) //错误处理
-    .pipe(less()) //less编译
-    .pipe(concat("index.min.css"))
-    .pipe(cssmin()) //cssmin
-    .pipe(autoprefixer({
-        browsers: config["autoprefixer_conf"],
-        cascade: true,
-        remove: true,
-        map: true
-    })) //autoprefixer
-    .pipe(sourcemaps.write('../maps'))
-    .pipe(gulp.dest('css'));
+        .pipe(plumber({
+            errorHandler: notify.onError('Error: <%= error.message %>')
+        })) //错误处理
+        .pipe(less()) //less编译
+        .pipe(concat("index.min.css"))
+        .pipe(cssmin()) //cssmin
+        .pipe(autoprefixer({
+            browsers: config["autoprefixer_conf"],
+            cascade: true,
+            remove: true,
+            map: true
+        })) //autoprefixer
+        .pipe(sourcemaps.write('../maps'))
+        .pipe(gulp.dest('css'));
 });
 //块级注释内可以选择性开启或者关闭cssmin/autoprefixer
 gulp.task('less_alternertive', function() {
@@ -226,3 +237,13 @@ gulp.task('babel_alternertive', () => {
         .pipe(sourcemaps.write('../maps/es6'))
         .pipe(gulp.dest('js'));
 });
+
+//watch
+gulp.task('autowatch', function() {
+    gulp.watch("less/*.less", ['less']); //当所有less文件发生改变时，调用less任务
+    gulp.watch('jade/*.jade', ['jade']);
+    gulp.watch('es6js/*.js', ['babel']);
+});
+
+//task list
+gulp.task("build",['autowatch','browsersync']);

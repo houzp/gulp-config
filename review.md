@@ -386,6 +386,31 @@
 	        .pipe(sourcemaps.write('../maps/es6'))
 	        .pipe(gulp.dest('js'));
 	});
+##### 3.watch以及tasklist
+- watch：主要是watch需要编译的环节，如less,es6；
+- task_list：以build为主
+	- browser-sync;
+	- less
+	- jade
+	- es6
+	- cssmin
+	- jsmin
+	- htmlmin
+	- imgmin
+	- rev
+- 代码示例
+	- watch：
+	gulp.task('autoless', function() {
+	    gulp.watch("less/*.less", ['less']); //当所有less文件发生改变时，调用less任务
+	    gulp.watch('jade/*.jade', ['jade']);
+		gulp.watch('es6js/*.js', ['babel']);
+	});
+
+	- task_list:
+		-     gulp.task("build",['autoless','browser-sync']);
+		-     gulp.task("build2",['autoless_all','imgmin']);//注意，此时需要串行依赖，后期加入该功能；
+
+
 
 ### 杂项
 - 淘宝npm镜像安装：`npm install -g cnpm --registry=https://registry.npm.taobao.org；`
