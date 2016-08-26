@@ -46,9 +46,11 @@ var config = {
 //browsersync
 gulp.task('browsersync', function() {
     var files = [
-    '*.html',
-    'css/*.css',
-    'js/*.js'
+    "jade/*.jade",
+    "less/*.less",
+    "es6js/*.js",
+    "css/*.css",
+    "js/*.js"
   ];
 
   browsersync.init(files,{
@@ -131,6 +133,7 @@ gulp.task('imgmin', function() {
 //jade
 gulp.task('jade', function() {
     return gulp.src('jade/*.jade')
+        .pipe(plumber())
         .pipe(jade({
             pretty: true
         }))

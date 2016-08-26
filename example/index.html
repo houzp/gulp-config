@@ -1,13 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>index</title>
-	<link rel="stylesheet" href="css/index.css">
-</head>
-<body>
-	<div></div>
-	<div></div>
-	<script src="js.index.js"></script>
-</body>
+
+<docutype></docutype>
+<html>
+  <head>
+    <meta chartset="utf8"/>
+    <link src="css/index.css"/>
+    <!--jade注释-->
+    <!--
+    [if IE]>
+    jade块级注释，比如使用link
+    <![endif]
+    -->
+    <title>jade test</title>
+  </head>
+  <body>
+    <ul>
+      <li><a href="javascript:void(0);">这是jade写的a标签</a></li>
+      <li>
+        大段内容，分行内容
+        大段内容，分行内容
+      </li>
+    </ul>
+    <section id="h5tag"></section>
+    <div class="className"></div>
+    <div id="part">不写标签名则默认生成div标签</div>
+    <div class="pic"><img src="img/index.jpg"/></div>
+    <div class="qiantao"><p></p></div>
+    <div class="part"> 内容之前要有空格，要注意保持缩进</div>
+    <div class="data"> abc:123
+    </div>
+    <ul class="box">
+      <li class="item"><a class="tet"></a></li>
+      <li class="item"><a class="pic"></a></li>
+      <li class="item"></li>
+    </ul>
+    <dl>
+      <dt></dt>
+      <dd><a></a></dd>
+      <dd><img/></dd>
+      <dd>
+        <div></div>
+      </dd>
+    </dl><a href="javascript:void(0);"></a>
+    <div class="a b c"></div>
+    <div>压缩空格的写法,子集书用竖线或者父级使用点</div><div></div>
+    <script>
+      !function(){
+      /*
+      仅作示例，强烈不推荐页内书写css/js!
+      */
+      }()
+    </script>
+    <script src="jq.js"></script>
+    <div id="varchart">定义变量以及输出变量<video></video>
+    </div>
+  </body>
 </html>
