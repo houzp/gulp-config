@@ -28,6 +28,7 @@
 22. vinyl-source-stream
 23. vinyl-buffer
 24. event-stream
+
 ###### p.s.
 - gulp-clean能够清空文件夹，需慎用;
 - 有些插件需全局安装，如less和browser-sync;
