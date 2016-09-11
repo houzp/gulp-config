@@ -11,8 +11,10 @@ var gulp = require("gulp"),
     notify = require("gulp-notify"),
     plumber = require("gulp-plumber"),
     imgmin = require("gulp-imagemin"),
-    pngmin = require("gulp-pngquant"),
+    pngquant = require("gulp-pngquant"),
     rev = require("gulp-rev"),
+    changed=require("gulp-changed"),
+    cache=require("gulp-cache"),
     browsersync = require('browser-sync').create();
 
 var config = {
@@ -21,7 +23,8 @@ var config = {
             '*.html',
             '*.htm',
             'css/*.css',
-            'js/*.js'
+            'js/*.js',
+            'jade/*.jade'
         ],
         server: {
             baseDir: "./"
@@ -46,18 +49,18 @@ var config = {
 //browsersync
 gulp.task('browsersync', function() {
     var files = [
-    "jade/*.jade",
-    "less/*.less",
-    "es6js/*.js",
-    "css/*.css",
-    "js/*.js"
-  ];
+        "jade/*.jade",
+        "less/*.less",
+        "es6js/*.js",
+        "css/*.css",
+        "js/*.js"
+    ];
 
-  browsersync.init(files,{
-    server: {
-      baseDir: ""
-    }
-  });
+    browsersync.init(files, {
+        server: {
+            baseDir: "./"
+        }
+    });
 });
 
 //babel
@@ -117,9 +120,9 @@ gulp.task('htmlmin', function() {
 });
 //imagemin
 gulp.task('imgmin', function() {
-    gulp.src("img /*.{png,jpg,gif,ico}")
-        .pipe(cache(imagemin({
-            optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
+    gulp.src("img/*.{png,jpg,gif,ico}")
+        .pipe(cache(imgmin({
+            optimizationLevel: 7, //类型：Number  默认：3  取值范围：0-7（优化等级）
             progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
             interlaced: true, //类型：Boolean 默认：false 隔行扫描gif进行渲染
             multipass: true, //类型：Boolean 默认：false 多次优化svg直到完全优化
@@ -137,11 +140,12 @@ gulp.task('jade', function() {
         .pipe(jade({
             pretty: true
         }))
-        .pipe(gulp.dest(''));
+        .pipe(gulp.dest('./'));
 });
 //less
 gulp.task('less', function() {
-    gulp.src("less/*.less")
+    return gulp.src("less/*.less")
+        .pipe(changed('css'))
         .pipe(sourcemaps.init())
         .pipe(plumber({
             errorHandler: notify.onError('Error: <%= error.message %>')
@@ -249,4 +253,4 @@ gulp.task('autowatch', function() {
 });
 
 //task list
-gulp.task("build",['autowatch','browsersync']);
+gulp.task("build", ['autowatch', 'browsersync']);

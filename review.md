@@ -28,6 +28,8 @@
 22. vinyl-source-stream
 23. vinyl-buffer
 24. event-stream
+25. gulp-cache
+26. gulp-changed
 
 ###### p.s.
 - gulp-clean能够清空文件夹，需慎用;
