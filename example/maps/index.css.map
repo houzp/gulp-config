@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.less"],"names":[],"mappings":"AAWA;AAAK;AAAG;AAAE;EAHT,SAAA;EACA,UAAA","sourcesContent":["@color1:red;\r\n@color2:blue;\r\n@color2:green;\r\n\r\n.border(){\r\n\tborder:1px solid;\r\n}\r\n.mp0(){\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n}\r\nbody,ul,p,h1{\r\n\t.mp0;\r\n}"],"file":"index.css","sourceRoot":"/source/"}

@@ -20,17 +20,18 @@ var gulp = require("gulp"),
 var config = {
     "browsersync_conf": {
         files: [
-            '*.html',
             '*.htm',
-            'css/*.css',
-            'js/*.js',
-            'jade/*.jade'
+            'jade/*.jade',
+            '*.html',
+            'css/*.css'
         ],
         server: {
             baseDir: "./"
-        }
+        },
+        notify:false,
+        port:4000
     },
-    "autoprefixer_conf": ["chrome 30", "Firefox < 20", "ios_saf 8", "safari 8", 'Android >= 2.3'],
+    "autoprefixer_conf": ["chrome 30", "Firefox < 20", "ios_saf 8", "safari 8", 'Android >= 2.3','IE 9','IE 10'],
     "htmlmin_conf": {
         removeComments: true, //清除HTML注释
         collapseWhitespace: false, //压缩HTML
@@ -57,6 +58,24 @@ gulp.task('browsersync', function() {
     ];
 
     browsersync.init(files, {
+        server: {
+            baseDir: "./"
+        },
+        notify:false,
+        port:3100
+    });
+});
+gulp.task('browsersync_build', function() {
+    var files = [
+        "jade/*.jade",
+        "less/*.less",
+        "es6js/*.js",
+        "css/*.css",
+        "js/*.js"
+    ];
+
+    browsersync.init(files, {
+        port:3000,
         server: {
             baseDir: "./"
         }
@@ -131,11 +150,11 @@ gulp.task('imgmin', function() {
             }], //不要移除svg的viewbox属性
             use: [pngquant()] //使用pngquant深度压缩png图片的imagemin插件
         })))
-        .pipe(gulp.dest('img'));
+        .pipe(gulp.dest('out/img'));
 });
 //jade
 gulp.task('jade', function() {
-    return gulp.src('jade/*.jade')
+    return gulp.src("jade/*.jade")
         .pipe(plumber())
         .pipe(jade({
             pretty: true
@@ -222,14 +241,14 @@ gulp.task('less_alternertive', function() {
     /*
         .pipe(cssmin())//cssmin
         */
-    /*
+    
         .pipe(autoprefixer({
             browsers: config["autoprefixer_conf"],
             cascade: true, 
             remove:true,
             map: true
         }))//autoprefixer
-        */
+        
     .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('css'));
 });
@@ -247,7 +266,7 @@ gulp.task('babel_alternertive', () => {
 
 //watch
 gulp.task('autowatch', function() {
-    gulp.watch("less/*.less", ['less']); //当所有less文件发生改变时，调用less任务
+    gulp.watch("less/*.less", ['less_alternertive']); //当所有less文件发生改变时，调用less任务
     gulp.watch('jade/*.jade', ['jade']);
     gulp.watch('es6js/*.js', ['babel']);
 });
