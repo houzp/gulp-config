@@ -43,3 +43,5 @@ echo psd >>.gitignore
 echo PSD >>.gitignore
 echo local >>.gitignore
 echo .DS_Store >>.gitignore
+
+del %0
