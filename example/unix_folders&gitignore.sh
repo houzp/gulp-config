@@ -1,4 +1,5 @@
-mkdir js esjs css img local psd less jade maps
+mkdir less es6js css js maps images local jade
+
 
 echo # Logs >>.gitignore
 echo logs >>.gitignore
@@ -43,5 +44,3 @@ echo psd >>.gitignore
 echo PSD >>.gitignore
 echo local >>.gitignore
 echo .DS_Store >>.gitignore
-
-del %0
