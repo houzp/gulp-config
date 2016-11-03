@@ -15,8 +15,6 @@ var gulp = require("gulp"),
     rev = require("gulp-rev"),
     changed=require("gulp-changed"),
     cache=require("gulp-cache"),
-    runSequence = require('gulp-sequence'),
-    minify = require('gulp-minify'),
     browsersync = require('browser-sync').create();
 
 var config = {
@@ -52,7 +50,6 @@ var config = {
 //browsersync
 gulp.task('browsersync', function() {
     var files = [
-        "*.htm",
         "jade/*.jade",
         "less/*.less",
         "es6js/*.js",
@@ -70,7 +67,6 @@ gulp.task('browsersync', function() {
 });
 gulp.task('browsersync_build', function() {
     var files = [
-        "*.htm",
         "jade/*.jade",
         "less/*.less",
         "es6js/*.js",
@@ -128,7 +124,7 @@ gulp.task('cssmin', function() {
 gulp.task('concatcss', function() {
     gulp.src('css/*.css')
         .pipe(concat('all_css.css')) //合并后的文件名
-    .pipe(gulp.dest('css'));
+    .pipe(gulp.dest('./css'));
 });
 gulp.task('concatjs', function() {
     gulp.src('js/*.js')
@@ -139,7 +135,7 @@ gulp.task('concatjs', function() {
 gulp.task('htmlmin', function() {
     gulp.src('*.html')
         .pipe(htmlmin(htmlmin_conf))
-        .pipe(gulp.dest(''));
+        .pipe(gulp.dest('PATH'));
 });
 //imagemin
 gulp.task('imgmin', function() {
@@ -154,7 +150,7 @@ gulp.task('imgmin', function() {
             }], //不要移除svg的viewbox属性
             use: [pngquant()] //使用pngquant深度压缩png图片的imagemin插件
         })))
-        .pipe(gulp.dest('img'));
+        .pipe(gulp.dest('out/img'));
 });
 //jade
 gulp.task('jade', function() {
@@ -216,14 +212,14 @@ gulp.task('less_all', function() {
         .pipe(gulp.dest('css'));
 });
 //less-->concat-->cssmin-->autoprefixer-->sourcemaps;
-/*gulp.task('less_allin', function() {
+gulp.task('less_allin', function() {
     return gulp.src("less/*.less")
         .pipe(sourcemaps.init()) //sourcemaps
         .pipe(plumber({
             errorHandler: notify.onError('Error: <%= error.message %>')
         })) //错误处理
         .pipe(less()) //less编译
-        .pipe(concat("all.min.css"))
+        .pipe(concat("index.min.css"))
         .pipe(cssmin()) //cssmin
         .pipe(autoprefixer({
             browsers: config["autoprefixer_conf"],
@@ -233,27 +229,28 @@ gulp.task('less_all', function() {
         })) //autoprefixer
         .pipe(sourcemaps.write('../maps'))
         .pipe(gulp.dest('css'));
-});*/
+});
 //块级注释内可以选择性开启或者关闭cssmin/autoprefixer
 gulp.task('less_alternertive', function() {
-    return gulp.src("less/*.less")
+    gulp.src("less/*.less")
         .pipe(sourcemaps.init()) //sourcemaps
     .pipe(plumber({
         errorHandler: notify.onError('Error: <%= error.message %>')
     })) //错误处理
     .pipe(less()) //less编译
+    /*
+        .pipe(cssmin())//cssmin
+        */
+    
         .pipe(autoprefixer({
             browsers: config["autoprefixer_conf"],
             cascade: true, 
             remove:true,
             map: true
         }))//autoprefixer
+        
     .pipe(sourcemaps.write('.'))
-    
-    .pipe(gulp.dest('css'))
-    /*.pipe(minify())*/
-    /*.pipe(cssmin())//cssmin*/
-    
+        .pipe(gulp.dest('css'));
 });
 //babel-->es5-->uglify-->sourcemaps
 gulp.task('babel_alternertive', () => {
@@ -276,6 +273,3 @@ gulp.task('autowatch', function() {
 
 //task list
 gulp.task("build", ['autowatch', 'browsersync']);
-/*gulp.task('prod', function(cb) {  
-    runSequence('less','autofx', 'cssmin','cssmin', cb);
-});*/
