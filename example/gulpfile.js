@@ -50,6 +50,7 @@ var config = {
 //browsersync
 gulp.task('browsersync', function() {
     var files = [
+        "*.htm",
         "jade/*.jade",
         "less/*.less",
         "es6js/*.js",
@@ -67,6 +68,7 @@ gulp.task('browsersync', function() {
 });
 gulp.task('browsersync_build', function() {
     var files = [
+        "*.htm",
         "jade/*.jade",
         "less/*.less",
         "es6js/*.js",
@@ -90,7 +92,7 @@ gulp.task('babel', () => {
             presets: ['es2015']
         }))
         .pipe(sourcemaps.write('../maps/es6'))
-        .pipe(gulp.dest('js'));
+        .pipe(gulp.dest('bundle/js'));
 });
 
 //autoprefixer
@@ -103,7 +105,7 @@ gulp.task('autofx', function() {
             //        transform: rotate(45deg);
             remove: true //是否去掉不必要的前缀 默认：true
         }))
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest('bundle/css'));
 });
 
 
@@ -117,25 +119,25 @@ gulp.task('cssmin', function() {
             keepSpecialComments: '*'
             //保留所有特殊前缀 当你用autoprefixer生成的浏览器前缀，如果不加这个参数，有可能将会删除你的部分前缀
         }))
-        .pipe(gulp.dest("css"));
+        .pipe(gulp.dest("bundle/css"));
 });
 
 //concat
 gulp.task('concatcss', function() {
     gulp.src('css/*.css')
         .pipe(concat('all_css.css')) //合并后的文件名
-    .pipe(gulp.dest('./css'));
+    .pipe(gulp.dest('bundle/css'));
 });
 gulp.task('concatjs', function() {
     gulp.src('js/*.js')
         .pipe(concat('all_js.js')) //合并后的文件名
-    .pipe(gulp.dest('js'));
+    .pipe(gulp.dest('bundle/js'));
 });
 //htmlmin
 gulp.task('htmlmin', function() {
     gulp.src('*.html')
         .pipe(htmlmin(htmlmin_conf))
-        .pipe(gulp.dest('PATH'));
+        .pipe(gulp.dest(''));
 });
 //imagemin
 gulp.task('imgmin', function() {
@@ -150,7 +152,7 @@ gulp.task('imgmin', function() {
             }], //不要移除svg的viewbox属性
             use: [pngquant()] //使用pngquant深度压缩png图片的imagemin插件
         })))
-        .pipe(gulp.dest('out/img'));
+        .pipe(gulp.dest('bundle/img'));
 });
 //jade
 gulp.task('jade', function() {
@@ -171,7 +173,7 @@ gulp.task('less', function() {
         })) //错误处理
     .pipe(less())
         .pipe(sourcemaps.write('../maps'))
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest('bundle/css'));
 });
 //uglify
 gulp.task('jsmin', function() {
@@ -179,7 +181,7 @@ gulp.task('jsmin', function() {
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(sourcemaps.write('../maps'))
-        .pipe(gulp.dest('js'));
+        .pipe(gulp.dest('bundle/js'));
 });
 
 
@@ -188,7 +190,7 @@ gulp.task('jsmin', function() {
 gulp.task('rev', function() {
     return gulp.src('*.css')
         .pipe(rev())
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest('bundle/css'));
 });
 /*
 !以下为复合能模块
@@ -209,17 +211,17 @@ gulp.task('less_all', function() {
         map: true
     })) //autoprefixer
     .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest('bundle/css'));
 });
 //less-->concat-->cssmin-->autoprefixer-->sourcemaps;
-gulp.task('less_allin', function() {
+/*gulp.task('less_allin', function() {
     return gulp.src("less/*.less")
         .pipe(sourcemaps.init()) //sourcemaps
         .pipe(plumber({
             errorHandler: notify.onError('Error: <%= error.message %>')
         })) //错误处理
         .pipe(less()) //less编译
-        .pipe(concat("index.min.css"))
+        .pipe(concat("all.min.css"))
         .pipe(cssmin()) //cssmin
         .pipe(autoprefixer({
             browsers: config["autoprefixer_conf"],
@@ -228,8 +230,8 @@ gulp.task('less_allin', function() {
             map: true
         })) //autoprefixer
         .pipe(sourcemaps.write('../maps'))
-        .pipe(gulp.dest('css'));
-});
+        .pipe(gulp.dest('bundle/css'));
+});*/
 //块级注释内可以选择性开启或者关闭cssmin/autoprefixer
 gulp.task('less_alternertive', function() {
     gulp.src("less/*.less")
@@ -238,9 +240,9 @@ gulp.task('less_alternertive', function() {
         errorHandler: notify.onError('Error: <%= error.message %>')
     })) //错误处理
     .pipe(less()) //less编译
-    /*
+    
         .pipe(cssmin())//cssmin
-        */
+        
     
         .pipe(autoprefixer({
             browsers: config["autoprefixer_conf"],
@@ -250,7 +252,7 @@ gulp.task('less_alternertive', function() {
         }))//autoprefixer
         
     .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest('bundle/css'));
 });
 //babel-->es5-->uglify-->sourcemaps
 gulp.task('babel_alternertive', () => {
@@ -261,7 +263,7 @@ gulp.task('babel_alternertive', () => {
         }))
         .pipe(uglify())
         .pipe(sourcemaps.write('../maps/es6'))
-        .pipe(gulp.dest('js'));
+        .pipe(gulp.dest('bundle/js'));
 });
 
 //watch

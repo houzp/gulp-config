@@ -1,4 +1,8 @@
 mkdir js es6js css images local less jade maps
+mkdir bundle\css
+mkdir bundle\js 
+mkdir bundle\img
+mkdir bundle\local
 
 
 echo # Logs >>.gitignore
