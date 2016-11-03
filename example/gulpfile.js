@@ -15,6 +15,8 @@ var gulp = require("gulp"),
     rev = require("gulp-rev"),
     changed=require("gulp-changed"),
     cache=require("gulp-cache"),
+    runSequence = require('gulp-sequence'),
+    minify = require('gulp-minify'),
     browsersync = require('browser-sync').create();
 
 var config = {
@@ -92,7 +94,7 @@ gulp.task('babel', () => {
             presets: ['es2015']
         }))
         .pipe(sourcemaps.write('../maps/es6'))
-        .pipe(gulp.dest('bundle/js'));
+        .pipe(gulp.dest('js'));
 });
 
 //autoprefixer
@@ -105,7 +107,7 @@ gulp.task('autofx', function() {
             //        transform: rotate(45deg);
             remove: true //是否去掉不必要的前缀 默认：true
         }))
-        .pipe(gulp.dest('bundle/css'));
+        .pipe(gulp.dest('css'));
 });
 
 
@@ -119,19 +121,19 @@ gulp.task('cssmin', function() {
             keepSpecialComments: '*'
             //保留所有特殊前缀 当你用autoprefixer生成的浏览器前缀，如果不加这个参数，有可能将会删除你的部分前缀
         }))
-        .pipe(gulp.dest("bundle/css"));
+        .pipe(gulp.dest("css"));
 });
 
 //concat
 gulp.task('concatcss', function() {
     gulp.src('css/*.css')
         .pipe(concat('all_css.css')) //合并后的文件名
-    .pipe(gulp.dest('bundle/css'));
+    .pipe(gulp.dest('css'));
 });
 gulp.task('concatjs', function() {
     gulp.src('js/*.js')
         .pipe(concat('all_js.js')) //合并后的文件名
-    .pipe(gulp.dest('bundle/js'));
+    .pipe(gulp.dest('js'));
 });
 //htmlmin
 gulp.task('htmlmin', function() {
@@ -152,7 +154,7 @@ gulp.task('imgmin', function() {
             }], //不要移除svg的viewbox属性
             use: [pngquant()] //使用pngquant深度压缩png图片的imagemin插件
         })))
-        .pipe(gulp.dest('bundle/img'));
+        .pipe(gulp.dest('img'));
 });
 //jade
 gulp.task('jade', function() {
@@ -173,7 +175,7 @@ gulp.task('less', function() {
         })) //错误处理
     .pipe(less())
         .pipe(sourcemaps.write('../maps'))
-        .pipe(gulp.dest('bundle/css'));
+        .pipe(gulp.dest('css'));
 });
 //uglify
 gulp.task('jsmin', function() {
@@ -181,7 +183,7 @@ gulp.task('jsmin', function() {
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(sourcemaps.write('../maps'))
-        .pipe(gulp.dest('bundle/js'));
+        .pipe(gulp.dest('js'));
 });
 
 
@@ -190,7 +192,7 @@ gulp.task('jsmin', function() {
 gulp.task('rev', function() {
     return gulp.src('*.css')
         .pipe(rev())
-        .pipe(gulp.dest('bundle/css'));
+        .pipe(gulp.dest('css'));
 });
 /*
 !以下为复合能模块
@@ -211,7 +213,7 @@ gulp.task('less_all', function() {
         map: true
     })) //autoprefixer
     .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('bundle/css'));
+        .pipe(gulp.dest('css'));
 });
 //less-->concat-->cssmin-->autoprefixer-->sourcemaps;
 /*gulp.task('less_allin', function() {
@@ -230,29 +232,28 @@ gulp.task('less_all', function() {
             map: true
         })) //autoprefixer
         .pipe(sourcemaps.write('../maps'))
-        .pipe(gulp.dest('bundle/css'));
+        .pipe(gulp.dest('css'));
 });*/
 //块级注释内可以选择性开启或者关闭cssmin/autoprefixer
 gulp.task('less_alternertive', function() {
-    gulp.src("less/*.less")
+    return gulp.src("less/*.less")
         .pipe(sourcemaps.init()) //sourcemaps
     .pipe(plumber({
         errorHandler: notify.onError('Error: <%= error.message %>')
     })) //错误处理
     .pipe(less()) //less编译
-    
-        .pipe(cssmin())//cssmin
-        
-    
         .pipe(autoprefixer({
             browsers: config["autoprefixer_conf"],
             cascade: true, 
             remove:true,
             map: true
         }))//autoprefixer
-        
     .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('bundle/css'));
+    
+    .pipe(gulp.dest('css'))
+    /*.pipe(minify())*/
+    /*.pipe(cssmin())//cssmin*/
+    
 });
 //babel-->es5-->uglify-->sourcemaps
 gulp.task('babel_alternertive', () => {
@@ -263,7 +264,7 @@ gulp.task('babel_alternertive', () => {
         }))
         .pipe(uglify())
         .pipe(sourcemaps.write('../maps/es6'))
-        .pipe(gulp.dest('bundle/js'));
+        .pipe(gulp.dest('js'));
 });
 
 //watch
@@ -275,3 +276,6 @@ gulp.task('autowatch', function() {
 
 //task list
 gulp.task("build", ['autowatch', 'browsersync']);
+/*gulp.task('prod', function(cb) {  
+    runSequence('less','autofx', 'cssmin','cssmin', cb);
+});*/
