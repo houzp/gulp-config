@@ -1,4 +1,4 @@
-mkdir less es6js css js maps images local jade
+mkdir less es6js css js maps img local jade
 mkdir bundle\css
 mkdir bundle\js 
 mkdir bundle\img
