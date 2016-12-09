@@ -15,6 +15,7 @@ var gulp = require("gulp"),
     rev = require("gulp-rev"),
     changed=require("gulp-changed"),
     cache=require("gulp-cache"),
+    spritesmith = require('gulp.spritesmith'),
     browsersync = require('browser-sync').create();
 
 var config = {
@@ -31,7 +32,7 @@ var config = {
         notify:false,
         port:4000
     },
-    "autoprefixer_conf": ["chrome 30", "Firefox < 20", "ios_saf 8", "safari 8", 'Android >= 2.3','IE 9','IE 10'],
+    "autoprefixer_conf": ["chrome 30", "Firefox < 20", "ios_saf 8", "safari 8", 'Android >= 2.1','IE 9','IE 10'],
     "htmlmin_conf": {
         removeComments: true, //清除HTML注释
         collapseWhitespace: false, //压缩HTML
@@ -130,6 +131,14 @@ gulp.task('concatjs', function() {
     gulp.src('js/*.js')
         .pipe(concat('all_js.js')) //合并后的文件名
     .pipe(gulp.dest('js'));
+});
+gulp.task('concatminjs', function() {
+    return gulp.src('js/*.js')
+        .pipe(concat('all_js.js')) //合并后的文件名
+        .pipe(sourcemaps.init())
+        .pipe(uglify())
+        .pipe(sourcemaps.write('../maps'))
+    .pipe(gulp.dest('out/js'));
 });
 //htmlmin
 gulp.task('htmlmin', function() {
@@ -263,12 +272,22 @@ gulp.task('babel_alternertive', () => {
         .pipe(sourcemaps.write('../maps/es6'))
         .pipe(gulp.dest('js'));
 });
-
+//gulp.spritesmith
+gulp.task('sprite', function () {
+  var spriteData = gulp.src('out/img/*.png').pipe(spritesmith({
+    imgName: 'sprite.png',
+    cssName: "css/sprite.css",//保存合并后对于css样式的地址
+    padding: 5,//合并时两个图片的间距
+    algorithm: 'left-right'
+  }));
+  return spriteData.pipe(gulp.dest('out'));
+});
 //watch
 gulp.task('autowatch', function() {
     gulp.watch("less/*.less", ['less_alternertive']); //当所有less文件发生改变时，调用less任务
     gulp.watch('jade/*.jade', ['jade']);
-    gulp.watch('es6js/*.js', ['babel']);
+    // gulp.watch('es6js/*.js', ['babel']);
+    // gulp.watch('js/*.js',['concatminjs']);
 });
 
 //task list
