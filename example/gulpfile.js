@@ -166,7 +166,7 @@ gulp.task('imgmin', function() {
 gulp.task("Totinypng", function(){
     gulp.src('img/*.{png,jpg,jpeg}')
         .pipe(tinypng({
-            key: '1qm9vD051NqOIWIylcdsJeqTdaByduVU',
+            key: 'YOUR_API_KEY',
             sigFile: '',
             log: true
         })).on('error', function(err) {
