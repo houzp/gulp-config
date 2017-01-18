@@ -1,4 +1,4 @@
-mkdir js es6js css images local less jade maps
+mkdir js es6js css img local less jade maps
 
 echo # Logs>>.gitignore
 echo logs>>.gitignore
