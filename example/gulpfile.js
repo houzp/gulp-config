@@ -85,7 +85,7 @@ gulp.task('browsersync_build', function() {
 });
 
 //babel
-gulp.task('babel', () => {
+/*gulp.task('babel', () => {
     return gulp.src('es6js/*.js')
         .pipe(sourcemaps.init())
         .pipe(babel({
@@ -94,7 +94,17 @@ gulp.task('babel', () => {
         .pipe(sourcemaps.write('../maps/es6'))
         .pipe(gulp.dest('js'));
 });
-
+*/
+gulp.task("babel", function () {
+  return gulp.src("es6js/*.js")
+    .pipe(sourcemaps.init())
+    .pipe(plumber({
+        errorHandler: notify.onError('Error: <%= error.message %>')
+     })) //错误处理
+    .pipe(babel())
+    .pipe(sourcemaps.write("."))
+    .pipe(gulp.dest("js"));
+});
 //autoprefixer
 gulp.task('autofx', function() {
     gulp.src("css/*.css")
