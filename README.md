@@ -10,3 +10,4 @@
 5. local，存放杂物；
 6. css，存放生成的css以及其他css文件；
 7. js，存放生成的js以及其他js文件
+8. .babelrc为babel配置文件
