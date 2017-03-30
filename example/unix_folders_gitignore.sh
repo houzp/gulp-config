@@ -46,10 +46,12 @@ echo local >>.gitignore
 echo .DS_Store >>.gitignore
 
 
-
+echo @charset "utf-8">>css/common.css
 echo 'html,body,div,p,hr,pre,h1,h2,h3,h4,h5,h6,table,tr,td,th,tfoot,tbody,thead,form,input,textarea,label,ul,ol,dl,li,dt,dd,.clearfix:after{margin:0;padding:0;}'>>css/common.css
 echo 'html,body{height:100%;}'>>css/common.css
-echo 'body{color:#000;line-height:22px;text-align:left;}'>>css/common.css
+echo 'body{color:#000;line-height:22px;text-align:left;'>>css/common.css
+echo 'font-family: "PingFang SC", "Lantinghei SC", "Helvetica Neue", Helvetica, Arial, "Microsoft YaHei", "微软雅黑", '>>css/common.css
+echo 'STHeitiSC-Light, simsun, "宋体", "WenQuanYi Zen Hei", "WenQuanYi Micro Hei", sans-serif;}'>>css/common.css
 echo 'li{list-style-type:none;}'>>css/common.css
 echo 'a{text-decoration:none;outline:none;color:#000;}'>>css/common.css
 echo 'a:hover{text-decoration:none;color: #ff9724;}'>>css/common.css
@@ -89,4 +91,4 @@ echo 'meta(name="apple-mobile-web-app-capable",content="yes")'>>jade/head.jade
 echo 'meta(name="apple-mobile-web-app-status-bar-style",content="black")'>>jade/head.jade
 echo 'meta(content="telephone=no",name="format-detection")'>>jade/head.jade
 echo 'meta(http-equiv="X-UA-Compatible",content="IE=edge,chrome=1")'>>jade/head.jade
-echo 'link(rel="stylesheet",href="css/common.css")'>>jade/head.jade
+echo 'link(rel="stylesheet",href="http://www.xinhuanet.com/global/public/css/common.css")'>>jade/head.jade
