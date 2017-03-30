@@ -79,7 +79,7 @@ echo .bgplc{background-position: left center;}>>less/pre.less
 echo .bgpxy(@bgpx,@bgpy){background-position: @bgpx @bgpy;}>>less/pre.less
 echo .bk{display: block;}>>less/pre.less
 echo .pseudo{content: "";.pa;.bk;}>>less/pre.less
-echo .fm-ms{.fm-ms{font-family: "Microsoft YaHei",\5FAE\8F6F\96C5\9ED1;}>>less/pre.less
+echo .fm-ms{font-family: "Microsoft YaHei",\5FAE\8F6F\96C5\9ED1;}>>less/pre.less
 echo iframe{.bk;width: 100%;}>>less/pre.less
 
 
