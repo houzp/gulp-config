@@ -16,6 +16,7 @@ var gulp = require("gulp"),
     changed=require("gulp-changed"),
     cache=require("gulp-cache"),
     spritesmith = require('gulp.spritesmith'),
+    tinypng = require('gulp-tinypng-compress'),
     browsersync = require('browser-sync').create();
 
 var config = {
@@ -84,7 +85,7 @@ gulp.task('browsersync_build', function() {
 });
 
 //babel
-gulp.task('babel', () => {
+/*gulp.task('babel', () => {
     return gulp.src('es6js/*.js')
         .pipe(sourcemaps.init())
         .pipe(babel({
@@ -93,7 +94,17 @@ gulp.task('babel', () => {
         .pipe(sourcemaps.write('../maps/es6'))
         .pipe(gulp.dest('js'));
 });
-
+*/
+gulp.task("babel", function () {
+  return gulp.src("es6js/*.js")
+    .pipe(sourcemaps.init())
+    .pipe(plumber({
+        errorHandler: notify.onError('Error: <%= error.message %>')
+     })) //错误处理
+    .pipe(babel())
+    .pipe(sourcemaps.write("."))
+    .pipe(gulp.dest("js"));
+});
 //autoprefixer
 gulp.task('autofx', function() {
     gulp.src("css/*.css")
@@ -150,7 +161,7 @@ gulp.task('htmlmin', function() {
 gulp.task('imgmin', function() {
     gulp.src("img/*.{png,jpg,gif,ico}")
         .pipe(cache(imgmin({
-            optimizationLevel: 7, //类型：Number  默认：3  取值范围：0-7（优化等级）
+            optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
             progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
             interlaced: true, //类型：Boolean 默认：false 隔行扫描gif进行渲染
             multipass: true, //类型：Boolean 默认：false 多次优化svg直到完全优化
@@ -159,6 +170,18 @@ gulp.task('imgmin', function() {
             }], //不要移除svg的viewbox属性
             use: [pngquant()] //使用pngquant深度压缩png图片的imagemin插件
         })))
+        .pipe(gulp.dest('out/img'));
+});
+
+gulp.task("Totinypng", function(){
+    gulp.src('img/*.{png,jpg,jpeg}')
+        .pipe(tinypng({
+            key: 'YOUR_API_KEY',
+            sigFile: '',
+            log: true
+        })).on('error', function(err) {
+            console.error(err.message);
+        })
         .pipe(gulp.dest('out/img'));
 });
 //jade
@@ -242,6 +265,7 @@ gulp.task('less_allin', function() {
 //块级注释内可以选择性开启或者关闭cssmin/autoprefixer
 gulp.task('less_alternertive', function() {
     gulp.src("less/*.less")
+        .pipe(changed('less/*.less'))
         .pipe(sourcemaps.init()) //sourcemaps
     .pipe(plumber({
         errorHandler: notify.onError('Error: <%= error.message %>')
@@ -269,7 +293,7 @@ gulp.task('babel_alternertive', () => {
             presets: ['es2015']
         }))
         .pipe(uglify())
-        .pipe(sourcemaps.write('../maps/es6'))
+        .pipe(sourcemaps.write('maps/es6'))
         .pipe(gulp.dest('js'));
 });
 //gulp.spritesmith
@@ -280,7 +304,7 @@ gulp.task('sprite', function () {
     padding: 5,//合并时两个图片的间距
     algorithm: 'left-right'
   }));
-  return spriteData.pipe(gulp.dest('out'));
+  return spriteData.pipe(gulp.dest('out/sprite'));
 });
 //watch
 gulp.task('autowatch', function() {
