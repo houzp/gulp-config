@@ -46,7 +46,7 @@ echo local >>.gitignore
 echo .DS_Store >>.gitignore
 
 
-echo @charset "utf-8">>css/common.css
+echo @charset \"utf-8\"";">>css/common.css
 echo 'html,body,div,p,hr,pre,h1,h2,h3,h4,h5,h6,table,tr,td,th,tfoot,tbody,thead,form,input,textarea,label,ul,ol,dl,li,dt,dd,.clearfix:after{margin:0;padding:0;}'>>css/common.css
 echo 'html,body{height:100%;}'>>css/common.css
 echo 'body{color:#000;line-height:22px;text-align:left;'>>css/common.css
