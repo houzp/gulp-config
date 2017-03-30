@@ -43,3 +43,51 @@ echo psd>>.gitignore
 echo PSD>>.gitignore
 echo local>>.gitignore
 echo .DS_Store>>.gitignore
+
+
+
+echo html, body, div, p, hr, pre, h1, h2, h3, h4, h5, h6, table, tr, td, th, tfoot, tbody, thead, form, input, textarea, label, ul, ol, dl, li, dt, dd,.clearfix:after { margin:0; padding:0; }>>css/common.css
+echo html, body { height:100%; }>>css/common.css
+echo body { color:#000; line-height:22px; text-align:left; }>>css/common.css
+echo li { list-style-type:none; }>>css/common.css
+echo a { text-decoration:none; outline:none; color:#000; }>>css/common.css
+echo a:hover { text-decoration:none; color: #ff9724; }>>css/common.css
+echo table { border-collapse:collapse; border-spacing:0; }>>css/common.css
+echo iframe,img { border:0;}>>css/common.css
+echo img { vertical-align:top;}>>css/common.css
+echo .clearfix { display:block; #zoom:1;}>>css/common.css
+echo .clearfix:after { content:''; overflow:hidden; width:100%; height:0px; font-size:0px; display:block; clear: both; }>>css/common.css
+echo .part{ width:1000px; margin:0 auto;}>>css/common.css
+echo .left{ float:left;}>>css/common.css
+echo .right{ float:right;}>>css/common.css
+
+
+
+
+
+
+
+
+echo .pr{position: relative;}>>less/pre.less
+echo .pa{position: absolute;}>>less/pre.less
+echo .oh{overflow: hidden;}>>less/pre.less
+echo .bgi(@imgname){@path:"../img/";}>>less/pre.less
+echo .bgr{background-repeat: no-repeat;}>>less/pre.less
+echo .bgpcb{background-position: center bottom;}>>less/pre.less
+echo .bgpct{background-position: center top;}>>less/pre.less
+echo .bgplc{background-position: left center;}>>less/pre.less
+echo .bgpxy(@bgpx,@bgpy){background-position: @bgpx @bgpy;}>>less/pre.less
+echo .bk{display: block;}>>less/pre.less
+echo .pseudo{content: "";.pa;.bk;}>>less/pre.less
+echo .fm-ms{.fm-ms{font-family: "Microsoft YaHei",\5FAE\8F6F\96C5\9ED1;}>>less/pre.less
+echo iframe{.bk;width: 100%;}>>less/pre.less
+
+
+echo meta(name="viewport",content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0")>>jade/head.jade
+echo meta(name="apple-mobile-web-app-capable",content="yes")>>jade/head.jade
+echo meta(name="apple-mobile-web-app-status-bar-style",content="black")>>jade/head.jade
+echo meta(content="telephone=no",name="format-detection")>>jade/head.jade
+echo meta(http-equiv = "X-UA-Compatible",content="IE=edge,chrome=1")>>jade/head.jade
+echo link(rel="stylesheet", href="css/common.css")>>jade/head.jade
+
+
