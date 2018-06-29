@@ -1,0 +1,44 @@
+
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        title 预置
+        meta(name="viewport", content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="IE=EmulateIE11")
+        meta(name="renderer" content="webkit")
+        <!-- itemprop 给 qq聊天窗口抓信息用的 图片不能是https或者重定向地址-->
+        meta(itemprop="name",content="预置")
+        meta(itemprop="image" content="http://www.newsimg.cn/common/share/logo4share.jpg")
+        meta(name="description",itemprop="description",content="预置")
+        link(rel="stylesheet", href="http://www.xinhuanet.com/global/public/css/common.css")
+        //- link(rel="stylesheet", href="http://www.xinhuanet.com/global/public/css/common_m.css")
+        link(rel="stylesheet", href="http://www.xinhuanet.com/global/lib/swiper/swiper2.7.6/idangerous.swiper.css")
+        <!-- build:css -->
+        link(rel="stylesheet", href="css/cover.css")
+        <!-- endbuild -->
+        link(rel="stylesheet", href="css/edited.css")
+
+        script(src="http://www.xinhuanet.com/global/lib/jq/jquery1.12.4/jquery1.12.4.min.js")
+        script(src="http://www.xinhuanet.com/global/lib/swiper/swiper2.7.6/idangerous.swiper.min.js")
+        <!--[if lte IE 9]>
+        <script src="http://www.xinhuanet.com/global/lib/polyfill/polyfill.js"></script>
+        <script src="http://www.xinhuanet.com/global/lib/html5shiv/html5shiv-printshiv.js"></script>
+        <script src="http://www.xinhuanet.com/global/lib/selectivizr/selectivizr.js"></script>
+        <![endif]-->
+
+    body
+        main
+            .test
+        
+        .share-title(style="display:none") 转发页面名称
+        .share-substr(style="display:none") 转发页面的摘要
+        img.share-img(style="display:none",src="http://www.newsimg.cn/common/share/logo4share.jpg",width="300",height="300")
+    
+        script(src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js")
+        script(src="http://www.xinhuanet.com/global/public/wxShare.js")
+
+    script(async,src="js/part.js")
+    <!-- build:js -->
+    script(src="js/index.js")
+    <!-- endbuild -->

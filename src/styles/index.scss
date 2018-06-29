@@ -1,0 +1,17 @@
+// @import "include/_variable";
+// @import "include/common";
+// @import "include/base";
+
+$p:"./../img/";
+// $p:"http://www.xinhuanet.com/politics/yxlsp20180425/";
+
+.box{
+	width: 1200px;
+	margin: 0 auto;
+}
+h1{
+	display: flex;
+}
+h2{
+	color:red;
+}

@@ -1,18 +1,15 @@
-### Node ###
-# Logs
-logs
-*.log
-npm-debug.log*
 
-### window ###
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-
-
-
-
-
+local
+dev
+bundle
+dist
+dis
 node_modules
 .DS_Store
+psd
+PSD
+zip
+*.zip
+*.html
+*.htm
+*.css

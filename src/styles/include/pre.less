@@ -1,0 +1,218 @@
+.pr() {
+    position: relative;
+}
+
+.pa() {
+    position: absolute;
+}
+
+.oh() {
+    overflow: hidden;
+}
+
+.ohx() {
+    overflow-x: hidden;
+}
+
+.ohy() {
+    overflow-y: hidden;
+}
+
+.bgi(@imgname) {
+    @path: "../img/";
+    // @path:"http://www.newsimg.cn/big201710leaderreports/img/";
+    background-image: url("@{path}@{imgname}");
+}
+.bdr(@imgname){
+    @path: "../img/";
+    // @path:"";
+    border-image-source: url("@{path}@{imgname}");
+}
+.bgr() {
+    background-repeat: no-repeat;
+}
+
+.bgpcb() {
+    background-position: center bottom;
+}
+
+.bgpct() {
+    background-position: center top;
+}
+
+.bgplc() {
+    background-position: left center;
+}
+
+.bgpcc() {
+    background-position: center center;
+}
+
+.bgpxy(@bgpx,@bgpy) {
+    background-position: @bgpx @bgpy;
+}
+
+.overflow-height(@height_row) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: @height_row;
+    -webkit-box-orient: vertical;
+}
+.txtoh{
+    .oh;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+}
+.bk() {
+    display: block;
+}
+
+.lbk() {
+    display: inline-block;
+}
+
+.pseudo() {
+    content: "";
+    .pa;
+    .bk;
+}
+
+.txt-oh() {
+    .oh;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.g-opacity0() {
+    opacity: 0;
+    // cursor: default;
+}
+.g-opacity1() {
+    opacity: 1;
+    // cursor: default;
+}
+.fm-ms() {
+    font-family: "微软雅黑","Microsoft YaHei",~"\5FAE\8F6F\96C5\9ED1","PingFang SC", "Lantinghei SC", "Helvetica Neue", "Helvetica, Arial", "STHeitiSC-Light", "simsun", "宋体", "WenQuanYi Zen Hei", "WenQuanYi Micro Hei", "sans-serif";
+}
+
+/* iframe {
+    .bk;
+    width: 100%;
+} */
+a:hover{
+    color: inherit;
+    -webkit-touch-callout: none;
+}
+.bg-linear() {
+    // background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=0 ); //IE6-9 
+}
+
+.bg-linear-opt() {
+    webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+    display: block;
+    width: 100%;
+    padding: 20px 20px 20px;
+    // background: #ffffff;
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.8)));
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+    // filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#000000', GradientType=0);
+}
+
+.mc() {
+    margin: 0 auto;
+}
+.input(){
+    background: none;
+    outline: none;
+    border: none;
+    margin:0;
+    padding: 0;
+    display: block;
+    box-sizing: content-box;
+}
+.flex-center(){
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ani(@name){
+    // animation: name duration timing-function delay iteration-count direction fill-mode;
+    animation-name:@name;
+    animation-duration:1s;
+    animation-timing-function:linear;//ease steps(5)/step-start/step-end/cubic-bezier(n,n,n,n)
+    animation-delay:0s;
+    animation-iteration-count:1;//infinite
+    animation-direction:normal;//alternate
+    animation-fill-mode:forwards;//backwards/both/none
+    animation-play-state: running;//paused
+}
+body{
+   .fm-ms;
+    -webkit-tap-highlight-color:transparent;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    tap-highlight-color: rgba(0, 0, 0, 0);
+}
+html,body{
+    height: auto;
+}
+
+
+
+//--------------
+.box {
+    width: 1000px;
+    .mc;
+}
+///
+.domMobile{
+    .hide;
+}
+@media all and (max-width:768px){
+    .domPc,
+    .domPC{
+        .hide;
+    }
+    .domMobile{
+        display: block;
+    }
+    .box {
+        width: 92%;
+    }
+}
+
+//-------------
+////////////////////////
+.hide{
+    display: none;
+}
+.hide-always{
+    display: none !important;
+}
+.noEvt{
+    pointer-events: none;
+}
+@dp: 2;
+@d: 2px;
+@r: 75rem;
+
+@c1:#333;//文字颜色
+@c2:#bf0009;
