@@ -722,10 +722,10 @@ gulp.task('default',["clean"], function() {
     // gulp.watch('./src/*.pug',["pug",'browsersyncReload']);
     // gulp.watch('./dis/js/*.js',["babel",'browsersyncReload'])
     // gulp.watch('./src/img/*.{png,jpg,jpeg,svg}',["imgmin",'browsersyncReload'])
-    watch("./src/styles/*.less", function(){
+    watch("./src/styles/**/*.less", function(){
         gulp.start(['less','browsersyncReload']);
     }); //当所有less文件发生改变时，调用less任务
-    watch("./src/styles/*.scss", function(){
+    watch("./src/styles/**/*.scss", function(){
         gulp.start(['sass','browsersyncReload']);
     }); //当所有scss文件发生改变时，调用less任务
     watch('./src/view/**/*.pug',  function(){
